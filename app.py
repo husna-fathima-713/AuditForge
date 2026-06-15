@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request
+from src.analyzer import analyze_contract
 import os
 
 app = Flask(__name__)
@@ -21,7 +22,13 @@ def upload():
 
     file.save(filepath)
 
-    return f"Contract saved successfully: {file.filename}"
+    result = analyze_contract(filepath)
+
+    return f"""
+    Contract Name: {result['contract_name']}<br>
+    Lines of Code: {result['lines_of_code']}<br>
+    File Name: {file.filename}
+    """
 
 if __name__ == "__main__":
     app.run(debug=True)
