@@ -31,10 +31,16 @@ def analyze_contract(filepath):
 
     reentrancy_risk = detect_reentrancy_risk(code)
 
+    if reentrancy_risk:
+        risk_level = "HIGH"
+    else:
+        risk_level = "LOW"
+
     return {
         "contract_name": contract_name,
         "lines_of_code": lines_of_code,
         "solidity_version": solidity_version,
         "external_calls": external_calls,
-        "reentrancy_risk": reentrancy_risk
+        "reentrancy_risk": reentrancy_risk,
+        "risk_level": risk_level
     }
