@@ -15,7 +15,19 @@ def analyze_contract(filepath):
         else "Unknown"
     )
 
+    pragma_match = re.search(
+        r"pragma\s+solidity\s+([^;]+);",
+        code
+    )
+
+    solidity_version = (
+        pragma_match.group(1)
+        if pragma_match
+        else "Unknown"
+    )
+
     return {
         "contract_name": contract_name,
-        "lines_of_code": lines_of_code
+        "lines_of_code": lines_of_code,
+        "solidity_version": solidity_version
     }

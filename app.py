@@ -27,8 +27,8 @@ def upload():
     return f"""
     Contract Name: {result['contract_name']}<br>
     Lines of Code: {result['lines_of_code']}<br>
-    File Name: {file.filename}
+    File Name: {file.filename}<br>
+    Solidity Version: {result['solidity_version']}
     """
-
 if __name__ == "__main__":
     app.run(debug=True)
