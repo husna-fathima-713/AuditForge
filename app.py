@@ -24,14 +24,10 @@ def upload():
 
     result = analyze_contract(filepath)
 
-    return f"""
-    Contract Name: {result['contract_name']}<br>
-    Lines of Code: {result['lines_of_code']}<br>
-    File Name: {file.filename}<br>
-    Solidity Version: {result['solidity_version']}<br>
-    External Calls: {result['external_calls']}<br>
-    Reentrancy Risk: {result['reentrancy_risk']}
-    """
+    return render_template(
+        "report.html",
+        result=result
+    )
 
 if __name__ == "__main__":
     app.run(debug=True)
