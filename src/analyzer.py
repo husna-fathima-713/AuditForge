@@ -1,3 +1,4 @@
+from src.reentrancy import detect_external_calls
 import re
 
 def analyze_contract(filepath):
@@ -25,9 +26,12 @@ def analyze_contract(filepath):
         if pragma_match
         else "Unknown"
     )
+    
+    external_calls = detect_external_calls(code)
 
     return {
         "contract_name": contract_name,
         "lines_of_code": lines_of_code,
-        "solidity_version": solidity_version
+        "solidity_version": solidity_version,
+        "external_calls": external_calls
     }
