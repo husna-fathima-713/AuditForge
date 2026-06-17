@@ -3,7 +3,11 @@ from src.reentrancy import (
     detect_reentrancy_risk,
     generate_reentrancy_finding
 )
+
+from src.overflow import generate_overflow_finding
+
 import re
+
 
 def analyze_contract(filepath):
 
@@ -12,7 +16,10 @@ def analyze_contract(filepath):
 
     lines_of_code = len(code.splitlines())
 
-    contract_match = re.search(r"contract\s+(\w+)", code)
+    contract_match = re.search(
+        r"contract\s+(\w+)",
+        code
+    )
 
     contract_name = (
         contract_match.group(1)
@@ -37,8 +44,14 @@ def analyze_contract(filepath):
 
     reentrancy_finding = generate_reentrancy_finding(code)
 
-    if reentrancy_risk:
+    overflow_finding = generate_overflow_finding(code)
+
+    if reentrancy_finding:
         risk_level = "HIGH"
+
+    elif overflow_finding:
+        risk_level = "MEDIUM"
+
     else:
         risk_level = "LOW"
 
@@ -49,5 +62,6 @@ def analyze_contract(filepath):
         "external_calls": external_calls,
         "reentrancy_risk": reentrancy_risk,
         "risk_level": risk_level,
-        "reentrancy_finding": reentrancy_finding
+        "reentrancy_finding": reentrancy_finding,
+        "overflow_finding": overflow_finding
     }

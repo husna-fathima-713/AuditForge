@@ -1,8 +1,10 @@
-pragma solidity ^0.8.0;
+pragma solidity ^0.7.0;
 
-contract Bank {
+contract OverflowTest {
 
-    function withdraw(uint amount) public {
-        msg.sender.call{value: amount}("");
+    uint256 balance;
+
+    function addFunds(uint256 amount) public {
+        balance = balance + amount;
     }
 }

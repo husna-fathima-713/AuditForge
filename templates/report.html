@@ -9,17 +9,35 @@
 
     <hr>
 
-    <p><strong>Contract Name:</strong> {{ result.contract_name }}</p>
+    <p>
+        <strong>Contract Name:</strong>
+        {{ result.contract_name }}
+    </p>
 
-    <p><strong>Lines of Code:</strong> {{ result.lines_of_code }}</p>
+    <p>
+        <strong>Lines of Code:</strong>
+        {{ result.lines_of_code }}
+    </p>
 
-    <p><strong>Solidity Version:</strong> {{ result.solidity_version }}</p>
+    <p>
+        <strong>Solidity Version:</strong>
+        {{ result.solidity_version }}
+    </p>
 
-    <p><strong>External Calls:</strong> {{ result.external_calls }}</p>
+    <p>
+        <strong>External Calls:</strong>
+        {{ result.external_calls }}
+    </p>
 
-    <p><strong>Reentrancy Risk:</strong> {{ result.reentrancy_risk }}</p>
+    <p>
+        <strong>Reentrancy Risk:</strong>
+        {{ result.reentrancy_risk }}
+    </p>
 
-    <p><strong>Risk Level:</strong> {{ result.risk_level }}</p>
+    <p>
+        <strong>Risk Level:</strong>
+        {{ result.risk_level }}
+    </p>
 
     {% if result.reentrancy_finding %}
 
@@ -40,6 +58,29 @@
     <p>
         <strong>Reason:</strong>
         {{ result.reentrancy_finding.reason }}
+    </p>
+
+    {% endif %}
+
+    {% if result.overflow_finding %}
+
+    <hr>
+
+    <h2>Overflow Findings</h2>
+
+    <p>
+        <strong>Severity:</strong>
+        {{ result.overflow_finding.severity }}
+    </p>
+
+    <p>
+        <strong>Issue:</strong>
+        {{ result.overflow_finding.title }}
+    </p>
+
+    <p>
+        <strong>Reason:</strong>
+        {{ result.overflow_finding.reason }}
     </p>
 
     {% endif %}
