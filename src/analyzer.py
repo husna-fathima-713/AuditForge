@@ -1,4 +1,8 @@
-from src.reentrancy import detect_external_calls, detect_reentrancy_risk
+from src.reentrancy import (
+    detect_external_calls,
+    detect_reentrancy_risk,
+    generate_reentrancy_finding
+)
 import re
 
 def analyze_contract(filepath):
@@ -31,6 +35,8 @@ def analyze_contract(filepath):
 
     reentrancy_risk = detect_reentrancy_risk(code)
 
+    reentrancy_finding = generate_reentrancy_finding(code)
+
     if reentrancy_risk:
         risk_level = "HIGH"
     else:
@@ -42,5 +48,6 @@ def analyze_contract(filepath):
         "solidity_version": solidity_version,
         "external_calls": external_calls,
         "reentrancy_risk": reentrancy_risk,
-        "risk_level": risk_level
+        "risk_level": risk_level,
+        "reentrancy_finding": reentrancy_finding
     }

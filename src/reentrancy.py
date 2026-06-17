@@ -27,3 +27,16 @@ def detect_reentrancy_risk(code):
             return True
 
     return False
+
+
+def generate_reentrancy_finding(code):
+
+    if detect_reentrancy_risk(code):
+
+        return {
+            "severity": "HIGH",
+            "title": "Potential Reentrancy Vulnerability",
+            "reason": "External call detected in contract."
+        }
+
+    return None

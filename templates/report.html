@@ -21,5 +21,28 @@
 
     <p><strong>Risk Level:</strong> {{ result.risk_level }}</p>
 
+    {% if result.reentrancy_finding %}
+
+    <hr>
+
+    <h2>Security Findings</h2>
+
+    <p>
+        <strong>Severity:</strong>
+        {{ result.reentrancy_finding.severity }}
+    </p>
+
+    <p>
+        <strong>Issue:</strong>
+        {{ result.reentrancy_finding.title }}
+    </p>
+
+    <p>
+        <strong>Reason:</strong>
+        {{ result.reentrancy_finding.reason }}
+    </p>
+
+    {% endif %}
+
 </body>
 </html>
