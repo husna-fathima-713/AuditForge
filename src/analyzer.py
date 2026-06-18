@@ -6,6 +6,8 @@ from src.reentrancy import (
 
 from src.overflow import generate_overflow_finding
 
+from src.access_control import generate_access_control_finding
+
 import re
 
 
@@ -46,7 +48,9 @@ def analyze_contract(filepath):
 
     overflow_finding = generate_overflow_finding(code)
 
-    if reentrancy_finding:
+    access_control_finding = generate_access_control_finding(code)
+
+    if reentrancy_finding or access_control_finding:
         risk_level = "HIGH"
 
     elif overflow_finding:
@@ -63,5 +67,6 @@ def analyze_contract(filepath):
         "reentrancy_risk": reentrancy_risk,
         "risk_level": risk_level,
         "reentrancy_finding": reentrancy_finding,
-        "overflow_finding": overflow_finding
+        "overflow_finding": overflow_finding,
+        "access_control_finding": access_control_finding
     }
