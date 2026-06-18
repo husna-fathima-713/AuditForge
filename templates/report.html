@@ -85,5 +85,28 @@
 
     {% endif %}
 
+    {% if result.access_control_finding %}
+
+    <hr>
+
+    <h2>Access Control Findings</h2>
+
+    <p>
+        <strong>Severity:</strong>
+        {{ result.access_control_finding.severity }}
+    </p>
+
+    <p>
+        <strong>Issue:</strong>
+        {{ result.access_control_finding.title }}
+    </p>
+
+    <p>
+        <strong>Reason:</strong>
+        {{ result.access_control_finding.reason }}
+    </p>
+
+    {% endif %}
+
 </body>
 </html>
