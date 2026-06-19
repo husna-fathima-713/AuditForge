@@ -1,112 +1,123 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>AuditForge Report</title>
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 </head>
+
 <body>
+
+<div class="container">
 
     <h1>AuditForge Security Report</h1>
 
     <hr>
 
-    <p>
-        <strong>Contract Name:</strong>
-        {{ result.contract_name }}
-    </p>
+    <h2>Contract Summary</h2>
 
-    <p>
-        <strong>Lines of Code:</strong>
-        {{ result.lines_of_code }}
-    </p>
+    <p><strong>Contract:</strong> {{ result.contract_name }}</p>
 
-    <p>
-        <strong>Solidity Version:</strong>
-        {{ result.solidity_version }}
-    </p>
+    <p><strong>Lines of Code:</strong> {{ result.lines_of_code }}</p>
 
-    <p>
-        <strong>External Calls:</strong>
-        {{ result.external_calls }}
-    </p>
+    <p><strong>Solidity Version:</strong> {{ result.solidity_version }}</p>
 
-    <p>
-        <strong>Reentrancy Risk:</strong>
-        {{ result.reentrancy_risk }}
-    </p>
+    <p><strong>External Calls:</strong> {{ result.external_calls }}</p>
 
-    <p>
-        <strong>Risk Level:</strong>
-        {{ result.risk_level }}
-    </p>
+    {% if result.risk_level == "HIGH" %}
+        <p class="high">
+            Risk Level: {{ result.risk_level }}
+        </p>
+
+    {% elif result.risk_level == "MEDIUM" %}
+        <p class="medium">
+            Risk Level: {{ result.risk_level }}
+        </p>
+
+    {% else %}
+        <p class="low">
+            Risk Level: {{ result.risk_level }}
+        </p>
+
+    {% endif %}
 
     {% if result.reentrancy_finding %}
 
-    <hr>
+    <div class="finding">
 
-    <h2>Security Findings</h2>
+        <h2>Reentrancy Finding</h2>
 
-    <p>
-        <strong>Severity:</strong>
-        {{ result.reentrancy_finding.severity }}
-    </p>
+        <p>
+            <strong>Severity:</strong>
+            {{ result.reentrancy_finding.severity }}
+        </p>
 
-    <p>
-        <strong>Issue:</strong>
-        {{ result.reentrancy_finding.title }}
-    </p>
+        <p>
+            <strong>Issue:</strong>
+            {{ result.reentrancy_finding.title }}
+        </p>
 
-    <p>
-        <strong>Reason:</strong>
-        {{ result.reentrancy_finding.reason }}
-    </p>
+        <p>
+            <strong>Reason:</strong>
+            {{ result.reentrancy_finding.reason }}
+        </p>
+
+    </div>
 
     {% endif %}
 
     {% if result.overflow_finding %}
 
-    <hr>
+    <div class="finding">
 
-    <h2>Overflow Findings</h2>
+        <h2>Overflow Finding</h2>
 
-    <p>
-        <strong>Severity:</strong>
-        {{ result.overflow_finding.severity }}
-    </p>
+        <p>
+            <strong>Severity:</strong>
+            {{ result.overflow_finding.severity }}
+        </p>
 
-    <p>
-        <strong>Issue:</strong>
-        {{ result.overflow_finding.title }}
-    </p>
+        <p>
+            <strong>Issue:</strong>
+            {{ result.overflow_finding.title }}
+        </p>
 
-    <p>
-        <strong>Reason:</strong>
-        {{ result.overflow_finding.reason }}
-    </p>
+        <p>
+            <strong>Reason:</strong>
+            {{ result.overflow_finding.reason }}
+        </p>
+
+    </div>
 
     {% endif %}
 
     {% if result.access_control_finding %}
 
-    <hr>
+    <div class="finding">
 
-    <h2>Access Control Findings</h2>
+        <h2>Access Control Finding</h2>
 
-    <p>
-        <strong>Severity:</strong>
-        {{ result.access_control_finding.severity }}
-    </p>
+        <p>
+            <strong>Severity:</strong>
+            {{ result.access_control_finding.severity }}
+        </p>
 
-    <p>
-        <strong>Issue:</strong>
-        {{ result.access_control_finding.title }}
-    </p>
+        <p>
+            <strong>Issue:</strong>
+            {{ result.access_control_finding.title }}
+        </p>
 
-    <p>
-        <strong>Reason:</strong>
-        {{ result.access_control_finding.reason }}
-    </p>
+        <p>
+            <strong>Reason:</strong>
+            {{ result.access_control_finding.reason }}
+        </p>
+
+    </div>
 
     {% endif %}
+
+</div>
 
 </body>
 </html>
