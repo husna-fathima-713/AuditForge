@@ -1,0 +1,37 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    background-color: #f4f4f4;
+}
+
+.container {
+    background: white;
+    padding: 25px;
+    border-radius: 10px;
+}
+
+h1 {
+    color: #222;
+}
+
+.high {
+    color: red;
+    font-weight: bold;
+}
+
+.medium {
+    color: orange;
+    font-weight: bold;
+}
+
+.low {
+    color: green;
+    font-weight: bold;
+}
+
+.finding {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 8px;
+}
