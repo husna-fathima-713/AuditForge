@@ -50,10 +50,35 @@ def analyze_contract(filepath):
 
     access_control_finding = generate_access_control_finding(code)
 
-    if reentrancy_finding or access_control_finding:
+    findings = [
+        reentrancy_finding,
+        overflow_finding,
+        access_control_finding
+    ]
+
+    findings = [f for f in findings if f]
+
+    high_count = 0
+    medium_count = 0
+    low_count = 0
+
+    for finding in findings:
+
+        if finding["severity"] == "HIGH":
+            high_count += 1
+
+        elif finding["severity"] == "MEDIUM":
+            medium_count += 1
+
+        elif finding["severity"] == "LOW":
+            low_count += 1
+
+    total_findings = len(findings)
+
+    if high_count > 0:
         risk_level = "HIGH"
 
-    elif overflow_finding:
+    elif medium_count > 0:
         risk_level = "MEDIUM"
 
     else:
@@ -66,7 +91,13 @@ def analyze_contract(filepath):
         "external_calls": external_calls,
         "reentrancy_risk": reentrancy_risk,
         "risk_level": risk_level,
+
         "reentrancy_finding": reentrancy_finding,
         "overflow_finding": overflow_finding,
-        "access_control_finding": access_control_finding
+        "access_control_finding": access_control_finding,
+
+        "total_findings": total_findings,
+        "high_count": high_count,
+        "medium_count": medium_count,
+        "low_count": low_count
     }
