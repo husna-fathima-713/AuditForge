@@ -1,123 +1,23 @@
-<!DOCTYPE html>
-<html>
+<hr>
 
-<head>
-    <title>AuditForge Report</title>
-    <link rel="stylesheet"
-          href="{{ url_for('static', filename='style.css') }}">
-</head>
+<h2>Finding Summary</h2>
 
-<body>
+<p>
+    <strong>Total Findings:</strong>
+    {{ result.total_findings }}
+</p>
 
-<div class="container">
+<p>
+    <strong>High Severity:</strong>
+    {{ result.high_count }}
+</p>
 
-    <h1>AuditForge Security Report</h1>
+<p>
+    <strong>Medium Severity:</strong>
+    {{ result.medium_count }}
+</p>
 
-    <hr>
-
-    <h2>Contract Summary</h2>
-
-    <p><strong>Contract:</strong> {{ result.contract_name }}</p>
-
-    <p><strong>Lines of Code:</strong> {{ result.lines_of_code }}</p>
-
-    <p><strong>Solidity Version:</strong> {{ result.solidity_version }}</p>
-
-    <p><strong>External Calls:</strong> {{ result.external_calls }}</p>
-
-    {% if result.risk_level == "HIGH" %}
-        <p class="high">
-            Risk Level: {{ result.risk_level }}
-        </p>
-
-    {% elif result.risk_level == "MEDIUM" %}
-        <p class="medium">
-            Risk Level: {{ result.risk_level }}
-        </p>
-
-    {% else %}
-        <p class="low">
-            Risk Level: {{ result.risk_level }}
-        </p>
-
-    {% endif %}
-
-    {% if result.reentrancy_finding %}
-
-    <div class="finding">
-
-        <h2>Reentrancy Finding</h2>
-
-        <p>
-            <strong>Severity:</strong>
-            {{ result.reentrancy_finding.severity }}
-        </p>
-
-        <p>
-            <strong>Issue:</strong>
-            {{ result.reentrancy_finding.title }}
-        </p>
-
-        <p>
-            <strong>Reason:</strong>
-            {{ result.reentrancy_finding.reason }}
-        </p>
-
-    </div>
-
-    {% endif %}
-
-    {% if result.overflow_finding %}
-
-    <div class="finding">
-
-        <h2>Overflow Finding</h2>
-
-        <p>
-            <strong>Severity:</strong>
-            {{ result.overflow_finding.severity }}
-        </p>
-
-        <p>
-            <strong>Issue:</strong>
-            {{ result.overflow_finding.title }}
-        </p>
-
-        <p>
-            <strong>Reason:</strong>
-            {{ result.overflow_finding.reason }}
-        </p>
-
-    </div>
-
-    {% endif %}
-
-    {% if result.access_control_finding %}
-
-    <div class="finding">
-
-        <h2>Access Control Finding</h2>
-
-        <p>
-            <strong>Severity:</strong>
-            {{ result.access_control_finding.severity }}
-        </p>
-
-        <p>
-            <strong>Issue:</strong>
-            {{ result.access_control_finding.title }}
-        </p>
-
-        <p>
-            <strong>Reason:</strong>
-            {{ result.access_control_finding.reason }}
-        </p>
-
-    </div>
-
-    {% endif %}
-
-</div>
-
-</body>
-</html>
+<p>
+    <strong>Low Severity:</strong>
+    {{ result.low_count }}
+</p>
