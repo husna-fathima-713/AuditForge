@@ -5,4 +5,5 @@ contract Token {
     function mint(address user, uint amount) public {
 
     }
+
 }

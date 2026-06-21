@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from src.analyzer import analyze_contract
+from src.report_generator import generate_report
 import os
 
 app = Flask(__name__)
@@ -18,11 +19,16 @@ def upload():
     if not file:
         return "No file selected"
 
-    filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+    filepath = os.path.join(
+        UPLOAD_FOLDER,
+        file.filename
+    )
 
     file.save(filepath)
 
     result = analyze_contract(filepath)
+
+    generate_report(result)
 
     return render_template(
         "report.html",
