@@ -19,9 +19,7 @@ Medium Severity: 0
 Low Severity: 0
 
 
------------------------------
 ACCESS CONTROL FINDING
------------------------------
 
 Severity: HIGH
 Issue: Missing Access Control
