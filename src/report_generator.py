@@ -6,8 +6,20 @@ from reportlab.platypus import (
 
 from reportlab.lib.styles import getSampleStyleSheet
 
+from datetime import datetime
+
 
 def generate_report(result):
+
+    timestamp = datetime.now().strftime(
+        "%Y%m%d_%H%M%S"
+    )
+
+    contract_name = result["contract_name"]
+
+    txt_filename = (
+        f"reports/{contract_name}_{timestamp}.txt"
+    )
 
     report_content = f"""
 =============================
@@ -31,6 +43,7 @@ Low Severity: {result['low_count']}
 """
 
     if result["reentrancy_finding"]:
+
         report_content += f"""
 
 REENTRANCY FINDING
@@ -41,6 +54,7 @@ Reason: {result['reentrancy_finding']['reason']}
 """
 
     if result["overflow_finding"]:
+
         report_content += f"""
 
 OVERFLOW FINDING
@@ -51,6 +65,7 @@ Reason: {result['overflow_finding']['reason']}
 """
 
     if result["access_control_finding"]:
+
         report_content += f"""
 
 ACCESS CONTROL FINDING
@@ -61,20 +76,32 @@ Reason: {result['access_control_finding']['reason']}
 """
 
     with open(
-        "reports/audit_report.txt",
+        txt_filename,
         "w",
         encoding="utf-8"
     ) as report_file:
 
         report_file.write(report_content)
 
-    generate_pdf_report(result)
+    generate_pdf_report(
+        result,
+        contract_name,
+        timestamp
+    )
 
 
-def generate_pdf_report(result):
+def generate_pdf_report(
+    result,
+    contract_name,
+    timestamp
+):
+
+    pdf_filename = (
+        f"reports/{contract_name}_{timestamp}.pdf"
+    )
 
     pdf = SimpleDocTemplate(
-        "reports/audit_report.pdf"
+        pdf_filename
     )
 
     styles = getSampleStyleSheet()

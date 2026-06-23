@@ -1,0 +1,33 @@
+
+=============================
+      AUDITFORGE REPORT
+=============================
+
+Contract Name: Bank
+Lines of Code: 8
+Solidity Version: ^0.8.0
+
+Overall Risk Level: HIGH
+
+-----------------------------
+FINDING SUMMARY
+-----------------------------
+
+Total Findings: 2
+High Severity: 2
+Medium Severity: 0
+Low Severity: 0
+
+
+REENTRANCY FINDING
+
+Severity: HIGH
+Issue: Potential Reentrancy Vulnerability
+Reason: External call detected in contract.
+
+
+ACCESS CONTROL FINDING
+
+Severity: HIGH
+Issue: Missing Access Control
+Reason: Sensitive functionality detected without ownership validation.
