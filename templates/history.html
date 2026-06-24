@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Audit History</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static',
+          filename='style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>Audit History</h1>
+
+    <table border="1"
+           cellpadding="10">
+
+        <tr>
+            <th>ID</th>
+            <th>Contract</th>
+            <th>Risk</th>
+            <th>Findings</th>
+            <th>Scan Time</th>
+        </tr>
+
+        {% for audit in audits %}
+
+        <tr>
+
+            <td>{{ audit[0] }}</td>
+
+            <td>{{ audit[1] }}</td>
+
+            <td>{{ audit[2] }}</td>
+
+            <td>{{ audit[3] }}</td>
+
+            <td>{{ audit[4] }}</td>
+
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+</div>
+
+</body>
+</html>
