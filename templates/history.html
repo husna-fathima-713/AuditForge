@@ -13,7 +13,35 @@
 
 <div class="container">
 
-    <h1>Audit History</h1>
+    <h1>AuditForge Dashboard</h1>
+
+    <hr>
+
+    <h2>Statistics</h2>
+
+    <p>
+        <strong>Total Audits:</strong>
+        {{ stats.total_audits }}
+    </p>
+
+    <p>
+        <strong>High Risk:</strong>
+        {{ stats.high_count }}
+    </p>
+
+    <p>
+        <strong>Medium Risk:</strong>
+        {{ stats.medium_count }}
+    </p>
+
+    <p>
+        <strong>Low Risk:</strong>
+        {{ stats.low_count }}
+    </p>
+
+    <hr>
+
+    <h2>Audit History</h2>
 
     <table border="1"
            cellpadding="10">
