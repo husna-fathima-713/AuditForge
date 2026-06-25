@@ -25,7 +25,6 @@ def initialize_database():
     """)
 
     connection.commit()
-
     connection.close()
 
 
@@ -61,7 +60,6 @@ def save_audit(
     ))
 
     connection.commit()
-
     connection.close()
 
 
@@ -84,3 +82,45 @@ def get_all_audits():
     connection.close()
 
     return audits
+
+
+def get_dashboard_stats():
+
+    connection = sqlite3.connect(
+        "auditforge.db"
+    )
+
+    cursor = connection.cursor()
+
+    cursor.execute(
+        "SELECT COUNT(*) FROM audits"
+    )
+
+    total_audits = cursor.fetchone()[0]
+
+    cursor.execute(
+        "SELECT COUNT(*) FROM audits WHERE risk_level='HIGH'"
+    )
+
+    high_count = cursor.fetchone()[0]
+
+    cursor.execute(
+        "SELECT COUNT(*) FROM audits WHERE risk_level='MEDIUM'"
+    )
+
+    medium_count = cursor.fetchone()[0]
+
+    cursor.execute(
+        "SELECT COUNT(*) FROM audits WHERE risk_level='LOW'"
+    )
+
+    low_count = cursor.fetchone()[0]
+
+    connection.close()
+
+    return {
+        "total_audits": total_audits,
+        "high_count": high_count,
+        "medium_count": medium_count,
+        "low_count": low_count
+    }
