@@ -10,7 +10,8 @@ from src.report_generator import generate_report
 from src.database import (
     initialize_database,
     save_audit,
-    get_all_audits
+    get_all_audits,
+    get_dashboard_stats
 )
 
 from datetime import datetime
@@ -75,9 +76,12 @@ def history():
 
     audits = get_all_audits()
 
+    stats = get_dashboard_stats()
+
     return render_template(
         "history.html",
-        audits=audits
+        audits=audits,
+        stats=stats
     )
 
 
