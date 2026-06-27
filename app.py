@@ -1,7 +1,22 @@
 from flask import (
     Flask,
     render_template,
-    request
+    request,
+    redirect,
+    url_for
+)
+
+from flask_login import (
+    LoginManager,
+    login_user,
+    logout_user,
+    login_required,
+    current_user
+)
+
+from src.auth import (
+    get_user,
+    verify_login
 )
 
 from src.analyzer import analyze_contract
@@ -20,25 +35,70 @@ import os
 
 app = Flask(__name__)
 
+app.secret_key = "auditforge_secret_key"
+
 UPLOAD_FOLDER = "contracts"
 
 initialize_database()
 
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login"
 
-@app.route("/")
-def home():
+
+@login_manager.user_loader
+def load_user(user_id):
+    return get_user(user_id)
+
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+
+    if request.method == "POST":
+
+        username = request.form["username"]
+        password = request.form["password"]
+
+        if verify_login(username, password):
+
+            user = get_user(username)
+
+            login_user(user)
+
+            return redirect(url_for("home"))
+
+        return render_template(
+            "login.html",
+            error="Invalid username or password."
+        )
 
     return render_template(
-        "index.html"
+        "login.html",
+        error=None
     )
+
+
+@app.route("/logout")
+@login_required
+def logout():
+
+    logout_user()
+
+    return redirect(url_for("login"))
+
+
+@app.route("/")
+@login_required
+def home():
+
+    return render_template("index.html")
 
 
 @app.route("/upload", methods=["POST"])
+@login_required
 def upload():
 
-    file = request.files.get(
-        "contract"
-    )
+    file = request.files.get("contract")
 
     if not file:
         return "No file selected"
@@ -50,9 +110,7 @@ def upload():
 
     file.save(filepath)
 
-    result = analyze_contract(
-        filepath
-    )
+    result = analyze_contract(filepath)
 
     generate_report(result)
 
@@ -60,9 +118,7 @@ def upload():
         result["contract_name"],
         result["risk_level"],
         result["total_findings"],
-        datetime.now().strftime(
-            "%Y-%m-%d %H:%M:%S"
-        )
+        datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     )
 
     return render_template(
@@ -72,6 +128,7 @@ def upload():
 
 
 @app.route("/history")
+@login_required
 def history():
 
     audits = get_all_audits()
