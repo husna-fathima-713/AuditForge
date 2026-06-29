@@ -1,0 +1,26 @@
+
+=============================
+      AUDITFORGE REPORT
+=============================
+
+Contract Name: Bank
+Lines of Code: 15
+Solidity Version: ^0.8.0
+
+Overall Risk Level: HIGH
+
+-----------------------------
+FINDING SUMMARY
+-----------------------------
+
+Total Findings: 1
+High Severity: 1
+Medium Severity: 0
+Low Severity: 0
+
+
+ACCESS CONTROL FINDING
+
+Severity: HIGH
+Issue: Missing Access Control
+Reason: Sensitive functionality detected without ownership validation.
