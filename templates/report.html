@@ -3,6 +3,7 @@
 
 <head>
     <title>AuditForge Report</title>
+
     <link rel="stylesheet"
           href="{{ url_for('static', filename='style.css') }}">
 </head>
@@ -44,6 +45,26 @@
 
     <hr>
 
+    <h2>Contract Structure</h2>
+
+    <h3>Functions</h3>
+
+    <ul>
+        {% for function in result.functions %}
+        <li>{{ function }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Mappings</h3>
+
+    <ul>
+        {% for mapping in result.mappings %}
+        <li>{{ mapping }}</li>
+        {% endfor %}
+    </ul>
+
+    <hr>
+
     <h2>Finding Summary</h2>
 
     <p>
@@ -65,6 +86,8 @@
         <strong>Low Severity:</strong>
         {{ result.low_count }}
     </p>
+
+    <hr>
 
     {% if result.reentrancy_finding %}
 

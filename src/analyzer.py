@@ -5,8 +5,8 @@ from src.reentrancy import (
 )
 
 from src.overflow import generate_overflow_finding
-
 from src.access_control import generate_access_control_finding
+from src.parser import parse_contract
 
 import re
 
@@ -16,18 +16,9 @@ def analyze_contract(filepath):
     with open(filepath, "r", encoding="utf-8") as file:
         code = file.read()
 
+    parsed = parse_contract(code)
+
     lines_of_code = len(code.splitlines())
-
-    contract_match = re.search(
-        r"contract\s+(\w+)",
-        code
-    )
-
-    contract_name = (
-        contract_match.group(1)
-        if contract_match
-        else "Unknown"
-    )
 
     pragma_match = re.search(
         r"pragma\s+solidity\s+([^;]+);",
@@ -77,27 +68,40 @@ def analyze_contract(filepath):
 
     if high_count > 0:
         risk_level = "HIGH"
-
     elif medium_count > 0:
         risk_level = "MEDIUM"
-
     else:
         risk_level = "LOW"
 
     return {
-        "contract_name": contract_name,
+
+        "contract_name": parsed["contract_name"],
+
+        "functions": parsed["functions"],
+
+        "mappings": parsed["mappings"],
+
         "lines_of_code": lines_of_code,
+
         "solidity_version": solidity_version,
+
         "external_calls": external_calls,
+
         "reentrancy_risk": reentrancy_risk,
+
         "risk_level": risk_level,
 
         "reentrancy_finding": reentrancy_finding,
+
         "overflow_finding": overflow_finding,
+
         "access_control_finding": access_control_finding,
 
         "total_findings": total_findings,
+
         "high_count": high_count,
+
         "medium_count": medium_count,
+
         "low_count": low_count
     }
