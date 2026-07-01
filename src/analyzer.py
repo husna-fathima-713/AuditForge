@@ -1,14 +1,14 @@
+import re
+
+from src.parser import parse_contract
 from src.reentrancy import (
     detect_external_calls,
-    detect_reentrancy_risk,
-    generate_reentrancy_finding
+    detect_reentrancy_risk
 )
 
-from src.overflow import generate_overflow_finding
-from src.access_control import generate_access_control_finding
-from src.parser import parse_contract
-
-import re
+from src.detectors.reentrancy_detector import ReentrancyDetector
+from src.detectors.overflow_detector import OverflowDetector
+from src.detectors.access_control_detector import AccessControlDetector
 
 
 def analyze_contract(filepath):
@@ -35,41 +35,59 @@ def analyze_contract(filepath):
 
     reentrancy_risk = detect_reentrancy_risk(code)
 
-    reentrancy_finding = generate_reentrancy_finding(code)
-
-    overflow_finding = generate_overflow_finding(code)
-
-    access_control_finding = generate_access_control_finding(code)
-
-    findings = [
-        reentrancy_finding,
-        overflow_finding,
-        access_control_finding
+    detectors = [
+        ReentrancyDetector(),
+        OverflowDetector(),
+        AccessControlDetector()
     ]
 
-    findings = [f for f in findings if f]
+    findings = []
 
-    high_count = 0
-    medium_count = 0
-    low_count = 0
+    for detector in detectors:
+
+        finding = detector.analyze(code)
+
+        if finding:
+            findings.append(finding)
+
+    reentrancy_finding = None
+    overflow_finding = None
+    access_control_finding = None
 
     for finding in findings:
 
-        if finding["severity"] == "HIGH":
-            high_count += 1
+        if finding["title"] == "Potential Reentrancy Vulnerability":
+            reentrancy_finding = finding
 
-        elif finding["severity"] == "MEDIUM":
-            medium_count += 1
+        elif finding["title"] == "Potential Integer Overflow":
+            overflow_finding = finding
 
-        elif finding["severity"] == "LOW":
-            low_count += 1
+        elif finding["title"] == "Missing Access Control":
+            access_control_finding = finding
+
+    high_count = sum(
+        1 for f in findings
+        if f["severity"] == "HIGH"
+    )
+
+    medium_count = sum(
+        1 for f in findings
+        if f["severity"] == "MEDIUM"
+    )
+
+    low_count = sum(
+        1 for f in findings
+        if f["severity"] == "LOW"
+    )
 
     total_findings = len(findings)
 
     if high_count > 0:
         risk_level = "HIGH"
+
     elif medium_count > 0:
         risk_level = "MEDIUM"
+
     else:
         risk_level = "LOW"
 
