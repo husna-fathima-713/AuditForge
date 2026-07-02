@@ -1,17 +1,68 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>AuditForge</title>
+
+<title>AuditForge</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static',filename='style.css') }}">
+
 </head>
+
 <body>
 
-    <h1>AuditForge</h1>
-    <p>Smart Contract Security Analysis Platform</p>
+<div class="container">
 
-    <form action="/upload" method="POST" enctype="multipart/form-data">
-        <input type="file" name="contract" accept=".sol">
-        <button type="submit">Upload Contract</button>
-    </form>
+<h1>AuditForge</h1>
+
+<p>
+
+Upload a Solidity smart contract for security analysis.
+
+</p>
+
+<hr>
+
+<form
+action="/upload"
+method="POST"
+enctype="multipart/form-data">
+
+<input
+type="file"
+name="contract"
+accept=".sol"
+required>
+
+<br><br>
+
+<button type="submit">
+
+Analyze Contract
+
+</button>
+
+</form>
+
+<br>
+
+<a href="/history">
+
+View Audit History
+
+</a>
+
+|
+
+<a href="/logout">
+
+Logout
+
+</a>
+
+</div>
 
 </body>
+
 </html>
