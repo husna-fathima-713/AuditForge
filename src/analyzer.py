@@ -1,6 +1,7 @@
 import re
 
 from src.parser import parse_contract
+
 from src.reentrancy import (
     detect_external_calls,
     detect_reentrancy_risk
@@ -99,6 +100,8 @@ def analyze_contract(filepath):
 
         "mappings": parsed["mappings"],
 
+        "state_variables": parsed["state_variables"],
+
         "lines_of_code": lines_of_code,
 
         "solidity_version": solidity_version,
@@ -122,4 +125,5 @@ def analyze_contract(filepath):
         "medium_count": medium_count,
 
         "low_count": low_count
+
     }
