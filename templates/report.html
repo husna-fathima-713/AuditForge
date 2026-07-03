@@ -50,17 +50,56 @@
     <h3>Functions</h3>
 
     <ul>
+
         {% for function in result.functions %}
-        <li>{{ function }}</li>
+
+        <li>
+
+            <strong>{{ function.name }}</strong><br>
+
+            Visibility:
+            {{ function.visibility }}
+
+            <br>
+
+            Parameters:
+            {{ function.parameters }}
+
+            <br>
+
+            Modifiers:
+            {{ function.modifiers }}
+
+        </li>
+
+        <br>
+
         {% endfor %}
+
     </ul>
 
     <h3>Mappings</h3>
 
     <ul>
+
         {% for mapping in result.mappings %}
+
         <li>{{ mapping }}</li>
+
         {% endfor %}
+
+    </ul>
+
+    <h3>State Variables</h3>
+
+    <ul>
+
+        {% for variable in result.state_variables %}
+
+        <li>{{ variable }}</li>
+
+        {% endfor %}
+
     </ul>
 
     <hr>
@@ -95,20 +134,11 @@
 
         <h2>Reentrancy Finding</h2>
 
-        <p>
-            <strong>Severity:</strong>
-            {{ result.reentrancy_finding.severity }}
-        </p>
+        <p><strong>Severity:</strong> {{ result.reentrancy_finding.severity }}</p>
 
-        <p>
-            <strong>Issue:</strong>
-            {{ result.reentrancy_finding.title }}
-        </p>
+        <p><strong>Issue:</strong> {{ result.reentrancy_finding.title }}</p>
 
-        <p>
-            <strong>Reason:</strong>
-            {{ result.reentrancy_finding.reason }}
-        </p>
+        <p><strong>Reason:</strong> {{ result.reentrancy_finding.reason }}</p>
 
     </div>
 
@@ -120,20 +150,11 @@
 
         <h2>Overflow Finding</h2>
 
-        <p>
-            <strong>Severity:</strong>
-            {{ result.overflow_finding.severity }}
-        </p>
+        <p><strong>Severity:</strong> {{ result.overflow_finding.severity }}</p>
 
-        <p>
-            <strong>Issue:</strong>
-            {{ result.overflow_finding.title }}
-        </p>
+        <p><strong>Issue:</strong> {{ result.overflow_finding.title }}</p>
 
-        <p>
-            <strong>Reason:</strong>
-            {{ result.overflow_finding.reason }}
-        </p>
+        <p><strong>Reason:</strong> {{ result.overflow_finding.reason }}</p>
 
     </div>
 
@@ -145,20 +166,11 @@
 
         <h2>Access Control Finding</h2>
 
-        <p>
-            <strong>Severity:</strong>
-            {{ result.access_control_finding.severity }}
-        </p>
+        <p><strong>Severity:</strong> {{ result.access_control_finding.severity }}</p>
 
-        <p>
-            <strong>Issue:</strong>
-            {{ result.access_control_finding.title }}
-        </p>
+        <p><strong>Issue:</strong> {{ result.access_control_finding.title }}</p>
 
-        <p>
-            <strong>Reason:</strong>
-            {{ result.access_control_finding.reason }}
-        </p>
+        <p><strong>Reason:</strong> {{ result.access_control_finding.reason }}</p>
 
     </div>
 
