@@ -6,4 +6,7 @@ contract Token {
 
     }
 
+    function burn(address user, uint amount) public onlyOwner {
+
+    }
 }

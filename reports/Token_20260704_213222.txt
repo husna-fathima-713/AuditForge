@@ -1,0 +1,19 @@
+
+=============================
+      AUDITFORGE REPORT
+=============================
+
+Contract Name: Token
+Lines of Code: 12
+Solidity Version: ^0.8.0
+
+Overall Risk Level: LOW
+
+-----------------------------
+FINDING SUMMARY
+-----------------------------
+
+Total Findings: 0
+High Severity: 0
+Medium Severity: 0
+Low Severity: 0
